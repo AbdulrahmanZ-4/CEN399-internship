@@ -1,0 +1,48 @@
+# Secrets and keys - never commit these
+.env
+*.pem
+*.key
+*.p12
+*.pfx
+**/certs/*
+!**/certs/README.md
+
+# Real client data.
+# These need the ** prefix: a pattern containing a slash is anchored to the
+# directory holding this file, so "data/*.json" would only match at the repo
+# root and miss activity-6-ai-website-platform/data/.
+**/data/*.json
+**/chatbot/logs/*.log
+**/chatbot/company_docs/*
+!**/chatbot/company_docs/README.md
+!**/data/README.md
+!**/chatbot/logs/README.md
+
+# Dependencies and build output
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+chroma_db/
+dist/
+build/
+*.egg-info/
+
+# Model weights and datasets
+*.h5
+*.keras
+*.pt
+*.pth
+dataset/
+input_drawings/
+site_photos/
+reports/*.docx
+
+# Editor and OS
+.vscode/
+.idea/
+desktop.ini
+.DS_Store
+Thumbs.db
+*.bak*
