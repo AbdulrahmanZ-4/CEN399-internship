@@ -1,0 +1,10 @@
+flask
+waitress
+chromadb
+rank-bm25
+sentence-transformers
+pypdf
+python-docx
+requests
+PyMuPDF
+easyocr
