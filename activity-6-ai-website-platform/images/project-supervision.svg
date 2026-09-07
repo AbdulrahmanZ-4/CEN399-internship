@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <rect width="900" height="600" fill="#334155"/>
+  <path d="M90 510h720" stroke="#f4b942" stroke-width="10" opacity=".55"/>
+  <path d="M190 510V210h210v300M500 510V150h220v360" fill="none" stroke="#f4b942" stroke-width="13" opacity=".9"/>
+  <path d="M220 260h55M310 260h55M220 330h55M310 330h55M530 210h55M620 210h55M530 290h55M620 290h55M530 370h55M620 370h55" stroke="#f4b942" stroke-width="11" opacity=".75"/>
+  <text x="450" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" fill="#f4b942" font-weight="700">Site Supervision</text>
+</svg>
