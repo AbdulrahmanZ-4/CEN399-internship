@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Scope Admin</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a class="brand" href="index.html"><img src="images/logo.svg" alt="Scope logo" /><span><strong>Scope</strong><small data-en="Admin" data-ar="الإدارة">Admin</small></span></a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button class="language-btn" id="languageBtn">عربي</button>
+        <a class="btn secondary" href="index.html" style="padding:8px 16px;" data-en="← Back to site" data-ar="العودة إلى الموقع →">← Back to site</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section container">
+      <!-- Login gate -->
+      <div id="adminLogin" class="admin-login">
+        <div class="planner-card" style="max-width:420px;margin:40px auto;">
+          <h3 data-en="Admin sign in" data-ar="تسجيل دخول المشرف">Admin sign in</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px;"
+             data-en="Sign in with your admin username and password."
+             data-ar="سجّل الدخول باسم المستخدم وكلمة المرور الخاصة بالمشرف.">
+            Sign in with your admin username and password.
+          </p>
+          <label class="planner-field"><span data-en="Username" data-ar="اسم المستخدم">Username</span>
+            <input type="text" id="adminUser" autocomplete="username" placeholder="Username" /></label>
+          <label class="planner-field"><span data-en="Password" data-ar="كلمة المرور">Password</span>
+            <input type="password" id="adminPass" autocomplete="current-password" /></label>
+          <button class="btn primary" id="adminLoginBtn" style="width:100%;margin-top:8px;"
+                  data-en="Sign in" data-ar="تسجيل الدخول">Sign in</button>
+          <p class="planner-msg" id="adminLoginMsg"></p>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div id="adminDash" style="display:none;">
+        <div class="section-heading" style="margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <div>
+            <p class="eyebrow" data-en="Admin Dashboard" data-ar="لوحة تحكم المشرف">Admin Dashboard</p>
+            <h2 data-en="Documents &amp; analytics" data-ar="المستندات والتحليلات">Documents &amp; analytics</h2>
+          </div>
+          <button class="btn secondary" id="exportCsvBtn" style="padding:8px 16px;"
+                  data-en="⭳ Export CSV" data-ar="⭳ تصدير CSV">⭳ Export CSV</button>
+        </div>
+
+        <div class="admin-grid">
+          <!-- Consultation bookings (full width) -->
+          <div class="planner-card admin-span">
+            <h3 data-en="Consultation bookings" data-ar="حجوزات الاستشارات">Consultation bookings</h3>
+            <p style="font-size:13px;color:var(--muted);" id="bookingSummary"></p>
+            <div class="admin-bookings" id="bookingList"></div>
+          </div>
+
+          <!-- Documents -->
+          <div class="planner-card">
+            <h3 data-en="Company documents" data-ar="مستندات الشركة">Company documents</h3>
+            <p style="font-size:13px;color:var(--muted);" id="docSummary"></p>
+            <div class="admin-upload">
+              <label class="scope-chat-upload-btn" style="display:inline-flex;">
+                <input type="file" id="adminFile" accept=".pdf,.docx,.txt,.md" hidden />
+                <span data-en="📎 Add a document" data-ar="📎 إضافة مستند">📎 Add a document</span>
+              </label>
+              <span class="planner-msg" id="uploadMsg"></span>
+            </div>
+            <div class="admin-doc-list" id="docList"></div>
+          </div>
+
+          <!-- Analytics -->
+          <div class="planner-card">
+            <h3 data-en="Analytics" data-ar="التحليلات">Analytics</h3>
+            <div class="admin-stats" id="statTiles"></div>
+            <h4 style="margin:14px 0 6px;font-size:14px;"
+                data-en="Most-asked questions" data-ar="الأسئلة الأكثر تكراراً">Most-asked questions</h4>
+            <div class="admin-questions" id="topQuestions"></div>
+          </div>
+
+          <!-- Unanswered / add docs for these -->
+          <div class="planner-card">
+            <h3 data-en="Add documents for these" data-ar="أضف مستندات لهذه">Add documents for these</h3>
+            <p style="font-size:12.5px;color:var(--muted);margin-bottom:8px;"
+               data-en="Questions the bot answered with low confidence — good candidates for new documents."
+               data-ar="أسئلة أجاب عنها المساعد بثقة منخفضة — وهي مرشحة لإضافة مستندات جديدة.">Questions the bot answered with low confidence — good candidates for new documents.</p>
+            <div class="admin-questions" id="unanswered"></div>
+          </div>
+
+          <!-- Negative feedback review -->
+          <div class="planner-card">
+            <h3 data-en="👎 Feedback to review" data-ar="👎 ملاحظات للمراجعة">👎 Feedback to review</h3>
+            <p style="font-size:12.5px;color:var(--muted);margin-bottom:8px;"
+               data-en="Answers users marked unhelpful — improve the docs or wording."
+               data-ar="إجابات وصفها المستخدمون بأنها غير مفيدة — حسّن المستندات أو الصياغة.">Answers users marked unhelpful — improve the docs or wording.</p>
+            <div id="recentFeedback"></div>
+          </div>
+        </div>
+
+        <p class="planner-msg" id="adminMsg" style="margin-top:12px;"></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- script.js carries the shared data-en/data-ar language pass; admin.js
+       translates the rows and tiles it builds at runtime. -->
+  <script src="js/script.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scope Consulting Engineers | Get a Quote</title>
+  <meta name="description" content="Estimate your project cost and timeline instantly, then request a consultation with Scope Consulting Engineers." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a class="brand" href="index.html"><img src="images/logo.svg" alt="Scope logo" /><span><strong>Scope</strong><small>Consulting Engineers</small></span></a>
+      <button class="menu-toggle" aria-label="Open navigation menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+        <li><a href="about.html" data-en="About" data-ar="من نحن">About</a></li>
+        <li><a href="services.html" data-en="Services" data-ar="الخدمات">Services</a></li>
+        <li><a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a></li>
+        <li><a href="planner.html" data-en="Plan Project" data-ar="خطط مشروعك">Plan Project</a></li>
+        <li><a class="active" href="quote.html" data-en="Get a Quote" data-ar="احصل على عرض سعر">Get a Quote</a></li>
+        <li><a href="contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a></li>
+      </ul>
+      <button class="language-btn" id="languageBtn">عربي</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container animate-on-scroll">
+        <p class="eyebrow" data-en="Instant Estimate" data-ar="تقدير فوري">Instant Estimate</p>
+        <h1 data-en="Estimate your project, then book a consultation." data-ar="قدّر مشروعك، ثم احجز استشارة.">Estimate your project, then book a consultation.</h1>
+        <p class="hero-text" data-en="Answer a few questions for a rough cost and timeline, then send it to our team to refine it." data-ar="أجب عن بعض الأسئلة للحصول على تكلفة ومدة تقريبية، ثم أرسلها لفريقنا لتدقيقها.">Answer a few questions for a rough cost and timeline, then send it to our team to refine it.</p>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="quote-grid">
+        <!-- Calculator -->
+        <div class="quote-card">
+          <h2 data-en="Project details" data-ar="تفاصيل المشروع">Project details</h2>
+
+          <label class="planner-field"><span data-en="Project type" data-ar="نوع المشروع">Project type</span>
+            <select id="qType">
+              <option value="villa" data-en="Villa" data-ar="فيلا">Villa</option>
+              <option value="apartment" data-en="Apartment / Residential" data-ar="شقة / سكني">Apartment / Residential</option>
+              <option value="commercial" data-en="Commercial building" data-ar="مبنى تجاري">Commercial building</option>
+              <option value="interior" data-en="Interior fit-out" data-ar="تشطيب داخلي">Interior fit-out</option>
+            </select>
+          </label>
+
+          <label class="planner-field"><span data-en="Built-up area (m²)" data-ar="المساحة المبنية (م²)">Built-up area (m²)</span>
+            <input type="number" id="qArea" min="20" max="20000" step="10" value="300" />
+          </label>
+
+          <label class="planner-field"><span data-en="Number of floors" data-ar="عدد الطوابق">Number of floors</span>
+            <input type="number" id="qFloors" min="1" max="30" step="1" value="2" />
+          </label>
+
+          <label class="planner-field"><span data-en="Finish level" data-ar="مستوى التشطيب">Finish level</span>
+            <select id="qFinish">
+              <option value="standard" data-en="Standard" data-ar="قياسي">Standard</option>
+              <option value="premium" data-en="Premium" data-ar="مميز">Premium</option>
+              <option value="luxury" data-en="Luxury" data-ar="فاخر">Luxury</option>
+            </select>
+          </label>
+
+          <label class="planner-check" style="margin-top:6px;">
+            <input type="checkbox" id="qSupervision" checked />
+            <span data-en="Include design + site supervision" data-ar="يشمل التصميم + الإشراف">Include design + site supervision</span>
+          </label>
+        </div>
+
+        <!-- Result + request -->
+        <div class="quote-card quote-result">
+          <h2 data-en="Your estimate" data-ar="تقديرك">Your estimate</h2>
+          <div class="quote-amount" id="qAmount">—</div>
+          <div class="quote-meta">
+            <div><span data-en="Estimated timeline" data-ar="المدة التقديرية">Estimated timeline</span><strong id="qTimeline">—</strong></div>
+            <div><span data-en="Design & supervision fee" data-ar="أتعاب التصميم والإشراف">Design &amp; supervision fee</span><strong id="qFee">—</strong></div>
+          </div>
+          <p class="quote-note" data-en="This is a rough indication only — the final figure depends on the site, specifications and authority requirements." data-ar="هذا تقدير تقريبي فقط — يعتمد الرقم النهائي على الموقع والمواصفات ومتطلبات الجهات.">This is a rough indication only — the final figure depends on the site, specifications and authority requirements.</p>
+
+          <hr class="quote-hr" />
+
+          <h3 data-en="Send this to our team" data-ar="أرسل هذا لفريقنا">Send this to our team</h3>
+          <form id="quoteForm" class="quote-form">
+            <input type="text" id="bName" placeholder="Your name" required />
+            <input type="email" id="bEmail" placeholder="Your email" required />
+            <input type="tel" id="bPhone" placeholder="Phone (optional)" />
+            <div class="quote-form-row">
+              <input type="date" id="bDate" required />
+              <select id="bTime" required disabled></select>
+            </div>
+            <p class="booking-slot-msg" id="bSlotMsg"></p>
+            <p class="booking-hours">
+              <span data-en="Opening hours: Saturday–Thursday, 9:00 AM–2:00 PM and 5:00–9:30 PM. Closed on Friday."
+                    data-ar="ساعات العمل: السبت–الخميس، 9:00 ص–2:00 م و5:00–9:30 م. الجمعة مغلق.">Opening hours: Saturday–Thursday, 9:00 AM–2:00 PM and 5:00–9:30 PM. Closed on Friday.</span>
+            </p>
+            <textarea id="bMessage" rows="2" placeholder="Anything else? (optional)"></textarea>
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+            <button type="submit" class="btn primary" data-en="Request consultation" data-ar="اطلب استشارة">Request consultation</button>
+            <p class="form-message" id="quoteMsg" style="display:none;"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <a class="whatsapp-btn" href="https://wa.me/971500000000" target="_blank" aria-label="Contact on WhatsApp">☏</a>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>Scope Consulting Engineers</h3>
+        <p data-en="Architecture, design, consultancy, and supervision services." data-ar="خدمات العمارة والتصميم والاستشارات والإشراف.">Architecture, design, consultancy, and supervision services.</p>
+      </div>
+      <div>
+        <h4 data-en="Pages" data-ar="الصفحات">Pages</h4>
+        <a href="services.html" data-en="Services" data-ar="الخدمات">Services</a>
+        <a href="planner.html" data-en="Plan Project" data-ar="خطط مشروعك">Plan Project</a>
+        <a href="quote.html" data-en="Get a Quote" data-ar="احصل على عرض سعر">Get a Quote</a>
+      </div>
+      <div>
+        <h4 data-en="Contact" data-ar="التواصل">Contact</h4>
+        <p>Al Ain, UAE</p>
+        <p>info@example.com</p>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Scope Consulting Engineers. All rights reserved.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/quote.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

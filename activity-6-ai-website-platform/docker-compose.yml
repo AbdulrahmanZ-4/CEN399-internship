@@ -1,0 +1,67 @@
+# One-command deployment of the whole Scope AI stack:
+#   ollama (LLM runtime) + chatbot (Python RAG API) + web (Node site & proxy)
+#
+#   docker compose up -d --build
+#   docker compose exec ollama ollama pull llama3.1:8b
+#   docker compose exec ollama ollama pull llava:latest
+#   open https://localhost:3000
+#
+# Optional env (via a .env file next to this compose file):
+#   ADMIN_USER, ADMIN_PASS, GMAIL_USER, GMAIL_APP_PASSWORD, CONTACT_TO
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama_models:/root/.ollama
+    restart: unless-stopped
+    # Uncomment to reach Ollama directly from the host:
+    # ports:
+    #   - "11434:11434"
+
+  chatbot:
+    build:
+      context: .
+      dockerfile: Dockerfile.chatbot
+    environment:
+      OLLAMA_URL: http://ollama:11434/api/generate
+      OLLAMA_MODEL: llama3.1:8b
+      CHATBOT_VISION_MODEL: llava:latest
+      CHATBOT_HOST: 0.0.0.0
+      CHATBOT_PORT: "8000"
+    volumes:
+      - chroma_data:/app/chatbot/chroma_db
+      - hf_cache:/app/.cache
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    environment:
+      CHATBOT_HOST: chatbot
+      CHATBOT_PORT: "8000"
+      # no defaults on purpose: the server refuses to start without these
+      ADMIN_USER: ${ADMIN_USER:?set ADMIN_USER in .env}
+      ADMIN_PASS: ${ADMIN_PASS:?set ADMIN_PASS in .env}
+      GMAIL_USER: ${GMAIL_USER:-}
+      GMAIL_APP_PASSWORD: ${GMAIL_APP_PASSWORD:-}
+      CONTACT_TO: ${CONTACT_TO:-}
+    volumes:
+      # Consultation bookings (data/bookings.json) must outlive the container,
+      # otherwise every rebuild would wipe the appointments.
+      - bookings_data:/app/data
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    depends_on:
+      - chatbot
+    restart: unless-stopped
+
+volumes:
+  ollama_models:
+  chroma_data:
+  hf_cache:
+  bookings_data:

@@ -1,0 +1,20 @@
+# Node/Express website + proxy (server.js) for the Scope AI website.
+FROM node:20-slim
+
+WORKDIR /app
+
+# Install JS deps first (better layer caching).
+COPY package.json package-lock.json* ./
+RUN npm install --omit=dev
+
+# Site + server code (node_modules, venv, chroma_db, certs excluded via .dockerignore).
+COPY . /app
+
+# Reach the chatbot container by service name; generate certs at runtime.
+ENV CHATBOT_HOST=chatbot \
+    CHATBOT_PORT=8000 \
+    HTTPS_PORT=3000 \
+    HTTP_PORT=3001
+
+EXPOSE 3000 3001
+CMD ["node", "server.js"]

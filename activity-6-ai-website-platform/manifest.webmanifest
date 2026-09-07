@@ -1,0 +1,14 @@
+{
+  "name": "Scope Consulting Engineers",
+  "short_name": "Scope",
+  "description": "Architecture & engineering consultancy — design, planning, and an AI assistant.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b1f33",
+  "lang": "en",
+  "icons": [
+    { "src": "images/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

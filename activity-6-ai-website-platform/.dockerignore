@@ -1,0 +1,12 @@
+node_modules
+chatbot/venv
+chatbot/chroma_db
+chatbot/__pycache__
+chatbot/logs
+certs
+data
+.env
+*.log
+npm-debug.log*
+.git
+.DS_Store

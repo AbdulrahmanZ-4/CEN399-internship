@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scope Consulting Engineers | Plan Your Project</title>
+  <meta name="description" content="Draw your home layout, see measurements and areas, and send it to Scope Consulting Engineers." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar container">
+      <a class="brand" href="index.html"><img src="images/logo.svg" alt="Scope logo" /><span><strong>Scope</strong><small>Consulting Engineers</small></span></a>
+      <button class="menu-toggle" aria-label="Open navigation menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+        <li><a href="about.html" data-en="About" data-ar="من نحن">About</a></li>
+        <li><a href="services.html" data-en="Services" data-ar="الخدمات">Services</a></li>
+        <li><a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a></li>
+        <li><a class="active" href="planner.html" data-en="Plan Project" data-ar="خطط مشروعك">Plan Project</a></li>
+        <li><a href="quote.html" data-en="Get a Quote" data-ar="احصل على عرض سعر">Get a Quote</a></li>
+        <li><a href="contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a></li>
+      </ul>
+      <button class="language-btn" id="languageBtn">عربي</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container animate-on-scroll">
+        <p class="eyebrow" data-en="Plan Your Project" data-ar="خطط مشروعك">Plan Your Project</p>
+        <h1 data-en="Draw your home layout in minutes." data-ar="ارسم مخطط منزلك في دقائق.">Draw your home layout in minutes.</h1>
+        <p class="hero-text" data-en="Sketch rooms, walls, doors and windows, see live measurements and areas, add more floors, then export a PDF or send it to our team." data-ar="ارسم الغرف والجدران والأبواب والنوافذ، وشاهد القياسات والمساحات مباشرة، وأضف طوابق، ثم صدّر ملف PDF أو أرسله لفريقنا.">Sketch rooms, walls, doors and windows, see live measurements and areas, add more floors, then export a PDF or send it to our team.</p>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="planner">
+        <!-- Toolbar -->
+        <div class="planner-toolbar">
+          <div class="planner-tools" id="planTools">
+            <button class="planner-tool active" data-tool="wall" data-en="Wall" data-ar="جدار">Wall</button>
+            <button class="planner-tool" data-tool="select" title="Select / edit / move" data-en="Select" data-ar="تحديد">Select</button>
+            <button class="planner-tool" data-tool="door" data-en="Door" data-ar="باب">Door</button>
+            <button class="planner-tool" data-tool="window" data-en="Window" data-ar="نافذة">Window</button>
+            <button class="planner-tool" data-tool="fixture" data-en="Add item" data-ar="إضافة عنصر">Add item</button>
+            <select id="fixtureType" class="planner-fixture-sel" style="display:none;"></select>
+          </div>
+          <div class="planner-tool-extra">
+            <label class="planner-check">
+              <input type="checkbox" id="orthoToggle" checked />
+              <span data-en="Straight lines" data-ar="خطوط مستقيمة">Straight lines</span>
+            </label>
+            <label class="planner-check">
+              <input type="checkbox" id="measureToggle" checked />
+              <span data-en="Measurements" data-ar="القياسات">Measurements</span>
+            </label>
+            <label class="planner-check">
+              <input type="checkbox" id="unitsToggle" />
+              <span data-en="Feet" data-ar="أقدام">Feet</span>
+            </label>
+            <label class="planner-check">
+              <input type="checkbox" id="northToggle" checked />
+              <span data-en="North" data-ar="الشمال">North</span>
+            </label>
+            <select id="templateSelect" class="planner-fixture-sel">
+              <option value="blank" data-en="Start from…" data-ar="ابدأ من…">Start from…</option>
+              <option value="studio" data-en="Studio" data-ar="استوديو">Studio</option>
+              <option value="apt1" data-en="1-Bed Apartment" data-ar="شقة غرفة">1-Bed Apartment</option>
+              <option value="villa" data-en="Villa" data-ar="فيلا">Villa</option>
+              <option value="office" data-en="Office" data-ar="مكتب">Office</option>
+            </select>
+            <button class="btn-tiny" id="view3dBtn" data-en="3D view" data-ar="عرض ثلاثي الأبعاد">3D view</button>
+            <button class="btn-tiny" id="setScaleBtn" data-en="Set scale" data-ar="ضبط المقياس">Set scale</button>
+            <button class="btn-tiny" id="copyBtn" data-en="Copy" data-ar="نسخ">Copy</button>
+            <button class="btn-tiny" id="pasteBtn" data-en="Paste" data-ar="لصق">Paste</button>
+            <button class="btn-tiny" id="undoBtn" data-en="Undo" data-ar="تراجع">Undo</button>
+            <button class="btn-tiny" id="redoBtn" data-en="Redo" data-ar="إعادة">Redo</button>
+            <button class="btn-tiny" id="deleteBtn" data-en="Delete" data-ar="حذف">Delete</button>
+            <button class="btn-tiny danger" id="clearBtn" data-en="Clear floor" data-ar="مسح الطابق">Clear floor</button>
+          </div>
+        </div>
+
+        <div class="planner-body">
+          <!-- Stage -->
+          <div class="planner-stage">
+            <div class="planner-floors" id="floorTabs"></div>
+            <div class="planner-canvas-wrap">
+              <svg id="planCanvas" class="planner-canvas" viewBox="0 0 1200 820" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+            <p class="planner-hint" id="planHint"></p>
+          </div>
+
+          <!-- Side panel -->
+          <aside class="planner-side">
+            <div class="planner-card">
+              <h3 data-en="Project details" data-ar="تفاصيل المشروع">Project details</h3>
+              <label class="planner-field"><span data-en="Project name" data-ar="اسم المشروع">Project name</span>
+                <input type="text" id="projectName" placeholder="My Villa" /></label>
+              <label class="planner-field"><span data-en="Your name" data-ar="اسمك">Your name</span>
+                <input type="text" id="clientName" /></label>
+              <label class="planner-field"><span data-en="Your email" data-ar="بريدك الإلكتروني">Your email</span>
+                <input type="email" id="clientEmail" /></label>
+              <label class="planner-field"><span data-en="Notes" data-ar="ملاحظات">Notes</span>
+                <textarea id="notes" rows="2"></textarea></label>
+            </div>
+
+            <div class="planner-card" id="selProps" style="display:none;"></div>
+
+            <div class="planner-card">
+              <h3 data-en="Room schedule" data-ar="جدول الغرف">Room schedule</h3>
+              <div id="roomSchedule" class="planner-totals"></div>
+            </div>
+
+            <div class="planner-card">
+              <h3 data-en="Summary" data-ar="الملخص">Summary</h3>
+              <div id="planTotals" class="planner-totals"></div>
+            </div>
+
+            <div class="planner-actions">
+              <div class="planner-dl-row">
+                <button class="btn primary" id="exportPdfBtn" data-en="Download PDF" data-ar="تحميل PDF">Download PDF</button>
+                <button class="btn primary" id="exportPngBtn" data-en="Download PNG" data-ar="تحميل PNG">Download PNG</button>
+              </div>
+              <button class="btn primary" id="emailPlanBtn" data-en="Send to Scope" data-ar="إرسال إلى سكوب">Send to Scope</button>
+              <div class="planner-actions-row">
+                <button class="btn-tiny" id="newPlanBtn" data-en="New plan" data-ar="مخطط جديد">New plan</button>
+                <span class="planner-save-status" id="saveStatus"></span>
+              </div>
+              <p class="planner-msg" id="planMsg"></p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="plan3dModal" class="plan-3d-modal" style="display:none;">
+    <div class="plan-3d-box">
+      <div class="plan-3d-head">
+        <strong data-en="3D preview" data-ar="معاينة ثلاثية الأبعاد">3D preview</strong>
+        <button class="plan-3d-close" id="close3dBtn" aria-label="Close">×</button>
+      </div>
+      <div id="plan3d" class="plan-3d-canvas"></div>
+    </div>
+  </div>
+
+  <a class="whatsapp-btn" href="https://wa.me/971500000000" target="_blank" aria-label="Contact on WhatsApp">☏</a>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>Scope Consulting Engineers</h3>
+        <p data-en="Architecture, design, consultancy, and supervision services." data-ar="خدمات العمارة والتصميم والاستشارات والإشراف.">Architecture, design, consultancy, and supervision services.</p>
+      </div>
+      <div>
+        <h4 data-en="Pages" data-ar="الصفحات">Pages</h4>
+        <a href="about.html" data-en="About" data-ar="من نحن">About</a>
+        <a href="services.html" data-en="Services" data-ar="الخدمات">Services</a>
+        <a href="planner.html" data-en="Plan Project" data-ar="خطط مشروعك">Plan Project</a>
+      </div>
+      <div>
+        <h4 data-en="Contact" data-ar="التواصل">Contact</h4>
+        <p>Al Ain, UAE</p>
+        <p>info@example.com</p>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Scope Consulting Engineers. All rights reserved.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/planner.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

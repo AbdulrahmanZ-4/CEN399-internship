@@ -1,0 +1,26 @@
+# Python RAG chatbot service (chatbot/api.py) for the Scope AI website.
+FROM python:3.12-slim
+
+WORKDIR /app/chatbot
+
+# System libraries needed by PyMuPDF / EasyOCR (OpenCV) and general builds.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libgl1 libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python deps first (better layer caching).
+COPY chatbot/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# App code.
+COPY chatbot/ /app/chatbot/
+RUN chmod +x /app/chatbot/docker-entrypoint.sh
+
+# Listen on all interfaces inside the container; talk to the "ollama" service.
+ENV CHATBOT_HOST=0.0.0.0 \
+    CHATBOT_PORT=8000 \
+    OLLAMA_URL=http://ollama:11434/api/generate \
+    HF_HOME=/app/.cache
+
+EXPOSE 8000
+ENTRYPOINT ["/app/chatbot/docker-entrypoint.sh"]
